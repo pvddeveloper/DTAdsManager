@@ -1,8 +1,10 @@
+platform :ios, '10.0'
 use_frameworks!
 
 target 'DTAdsManager_Example' do
   pod 'DTAdsManager', :path => '../'
-
+  pod 'Google-Mobile-Ads-SDK'
+    pod 'FBAudienceNetwork'
   target 'DTAdsManager_Tests' do
     inherit! :search_paths
 

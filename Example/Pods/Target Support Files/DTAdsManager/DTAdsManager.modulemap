@@ -1,0 +1,6 @@
+framework module DTAdsManager {
+  umbrella header "DTAdsManager-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "DTAdsManager",
+  "version": "0.1.0",
+  "summary": "A short description fffof DTAdsManager.",
+  "description": "Description",
+  "homepage": "https://github.com/adx-developer/DTAdsManager",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "adx-developer": "pvddeveloper@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/adx-developer/DTAdsManager.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "DTAdsManager/Classes/**/*",
+  "static_framework": true,
+  "dependencies": {
+    "FBAudienceNetwork": [
+
+    ],
+    "Google-Mobile-Ads-SDK": [
+
+    ]
+  }
+}
