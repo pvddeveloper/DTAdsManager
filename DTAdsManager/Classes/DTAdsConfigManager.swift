@@ -41,7 +41,7 @@ class DTAdsConfigManager {
          "native": ["fbNative": keyFbNative,
          "admobNative": keyAdmobNative],
          "version": 1,
-         "mỉnRangeShowInters": 300
+         "minRangeShowInters": 300
          ]
          */
         // Tạo arr Banner
@@ -127,7 +127,7 @@ class DTAdsConfigManager {
     }
     func getMinRangeShowInters() -> Double {
         let json = JSON.init(parseJSON:  UserDefaults.standard.string(forKey: "savedConfigAdsKeyManager") ?? "")
-        let minRange = json["mỉnRangeShowInters"].doubleValue
+        let minRange = json["minRangeShowInters"].doubleValue
         if minRange > 0 {
             return minRange
         }
@@ -149,11 +149,11 @@ enum DTAdType: String {
         case .fbBanner:
             return UserDefaults.standard.string(forKey: DTAdType.fbBanner.rawValue) ?? "755638821870358_755644428536464"
         case .admobBanner:
-            return UserDefaults.standard.string(forKey: DTAdType.admobBanner.rawValue) ?? "ca-app-pub-3940256099942544/2435281174"//"ca-app-pub-9435646037884749/3624877756"
+            return UserDefaults.standard.string(forKey: DTAdType.admobBanner.rawValue) ?? "ca-app-pub-9435646037884749/3624877756"
         case .fbInters:
             return UserDefaults.standard.string(forKey: DTAdType.fbInters.rawValue) ?? "755638821870358_755644201869820"
         case .admobInters:
-            return UserDefaults.standard.string(forKey: DTAdType.admobInters.rawValue) ?? "ca-app-pub-3940256099942544/4411468910"//"ca-app-pub-9435646037884749/8941608028"
+            return UserDefaults.standard.string(forKey: DTAdType.admobInters.rawValue) ?? "ca-app-pub-9435646037884749/8941608028"
         case .fbNative:
             return UserDefaults.standard.string(forKey: DTAdType.fbNative.rawValue) ?? "755638821870358_755643618536545"
         case .admobNative:

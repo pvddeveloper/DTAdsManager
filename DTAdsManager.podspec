@@ -8,9 +8,9 @@
 
 Pod::Spec.new do |s|
   s.name             = 'DTAdsManager'
-  s.version          = '0.1.0'
-  s.summary          = 'A short description fffof DTAdsManager.'
-
+  s.version          = '0.1.1'
+  s.summary          = 'A short description fffof DTAdsManager bs jkdhskj dkjsa kds kds sk.'
+    s.swift_version = '4.0'
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
 #   * Try to keep it short, snappy and to the point.
@@ -19,10 +19,10 @@ Pod::Spec.new do |s|
 
   s.description      = 'Description'
 
-  s.homepage         = 'https://github.com/adx-developer/DTAdsManager'
+  s.homepage         = 'https://github.com/pvddeveloper/DTAdsManager/tree/0.1.0'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'adx-developer' => 'pvddeveloper@gmail.com' }
+  s.author           = { 'Pham Diep' => 'pvddeveloper@gmail.com' }
   s.source           = { :git => 'https://github.com/pvddeveloper/DTAdsManager.git', :tag => s.version}
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 

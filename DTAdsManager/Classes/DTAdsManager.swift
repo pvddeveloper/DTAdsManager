@@ -51,8 +51,9 @@ import FBAudienceNetwork
         }
     }
     
-    public func setProversion(isPro: Bool) {
-        if isPro == false && isProversion == true {
+    public func setProversion(isPro: Bool, config: String) {
+        let configChanged = DTAdsConfigManager.shared.reloadAdKey(strConfig: config)
+        if isPro == false && isProversion == true || configChanged {
            reloadAllAds()
         }
         isProversion = isPro
