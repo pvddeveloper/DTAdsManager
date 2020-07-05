@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'DTAdsManager_Example' do
+  pod 'DTAdsManager', :path => '../'
+
+  target 'DTAdsManager_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
