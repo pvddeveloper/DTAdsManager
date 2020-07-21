@@ -73,6 +73,7 @@ import MoPub
         fbBanner = nil
         admobBanner = nil
         mopubBanner = nil
+        isLoadingBanner = false
         loadNewBannerAds()
     }
   
@@ -84,8 +85,9 @@ import MoPub
         fbInterstitialAd = nil
         admobInterstitialAd = nil
         mopubInterstitialAd = nil
-        
+        isLoadingBanner = false
         loadNewBannerAds()
+        isLoadingInters = false
         loadNewInterstitialAds()
     }
     //MARK: Banner
@@ -171,6 +173,7 @@ import MoPub
         self.bannerView.isHidden = false
     }
     
+    private var isLoadingBanner = false
     private func loadNewBannerAds() {
         guard let rootBannerVC = self.bannerRootVC else {
             return
@@ -181,10 +184,12 @@ import MoPub
             self.hideBannerAd()
             return
         }
+        if isLoadingBanner {
+            return
+        }
      
-        if let bannerType = DTAdsConfigManager.shared.getNextBannerType() {// nghỉ nếu load hết một vòng toàn lỗi
-            // Save lại lần cuối load banner
-            UserDefaults.standard.set(Date.init().timeIntervalSince1970, forKey: "lastLoadBannerToReload")
+        if let bannerType = DTAdsConfigManager.shared.getNextBannerType() {
+            isLoadingBanner = true
             switch bannerType {
             case .admobBanner:
                 if admobBanner == nil {
@@ -201,6 +206,7 @@ import MoPub
                 }
                 admobBanner?.load(GADRequest.init())
             case .fbBanner:
+                isLoadingBanner = false
                 loadNewBannerAds()
                 
 //                if fbBanner == nil {
@@ -215,25 +221,36 @@ import MoPub
                     mopubBanner?.delegate = self
                     mopubBanner?.frame = CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: self.heightConstraint?.constant ?? 250)
                     
-                        mopubBanner?.loadAd(withMaxAdSize: CGSize.init(width: UIScreen.main.bounds.width, height: self.heightConstraint?.constant ?? 250))
+                       
+                }
+                     mopubBanner?.loadAd(withMaxAdSize: CGSize.init(width: UIScreen.main.bounds.width, height: self.heightConstraint?.constant ?? 250))
                 } else {
+                    isLoadingBanner = false
                     loadNewBannerAds()
-                    }
-                    
                 }
             default:
                 break
             }
+        } else {// nghỉ nếu load hết một vòng toàn lỗi
+              UserDefaults.standard.set(Date.init().timeIntervalSince1970, forKey: "lastLoadBannerToReload")
         }
     }
     
     //MARK: Interstitial ads
+    private var isLoadingInters = false
     private func loadNewInterstitialAds() {
         // Kiểm tra lần cuối load lỗi tất cả các mạng đã quá số phút min để load tiếp chưa
-        if Date.init().timeIntervalSince1970 - UserDefaults.standard.double(forKey: "DTLastTimeLoadFailedAllInters") < DTAdsConfigManager.shared.getMinRangeShowInters() || DTAdsConfigManager.shared.didIntersGetLimited() {
+        if Date.init().timeIntervalSince1970 - UserDefaults.standard.double(forKey: "DTLastTimeLoadFailedAllInters") < DTAdsConfigManager.shared.getMinRangeShowInters() || DTAdsConfigManager.shared.didIntersGetLimited() || isLoadingInters {
+            return
+        }
+        // Gần đến lần show tiếp theo mới load, để tăng fill rate. Trong khi load thì cho biến isLoading vào để tránh gọi load nhiều cái cùng lúc.
+        let numberOfSecFromLastShow = Date().timeIntervalSince1970 - UserDefaults.standard.double(forKey: "DtLastTimeShowInterstitial")
+        if numberOfSecFromLastShow + 10 < DTAdsConfigManager.shared.getMinRangeShowInters() {
+            // cách lượt show < 10 giây thì cũng chưa load luôn => tăng fillrate
             return
         }
         if let intersType = DTAdsConfigManager.shared.getNextIntersType() {
+            isLoadingInters = true
             switch intersType {
             case .admobInters:
                // if admobInterstitialAd == nil {
@@ -256,6 +273,7 @@ import MoPub
              //  }
                     mopubInterstitialAd?.loadAd()
                 } else {
+                    isLoadingInters = false
                     loadNewInterstitialAds()
                 }
             default:
@@ -266,11 +284,24 @@ import MoPub
             UserDefaults.standard.set(Date.init().timeIntervalSince1970, forKey: "DTLastTimeLoadFailedAllInters")
         }
     }
-    
+    public func isIntersAvaiableToShow() -> Bool {
+        if fbInterstitialAd?.isAdValid == true || (admobInterstitialAd?.isReady == true && admobInterstitialAd?.hasBeenUsed == false) || mopubInterstitialAd?.ready == true {
+            return true
+        } else {
+            return false
+        }
+    }
     public func showInterstitial(rootVC: UIViewController) {
         // Check xem đủ thời gian tối thiểu để show ads chưa
         let lastTimeShow = UserDefaults.standard.double(forKey: "DtLastTimeShowInterstitial")
-        if Date().timeIntervalSince1970 - lastTimeShow < DTAdsConfigManager.shared.getMinRangeShowInters() {
+        let numberOfSecFromLastShow = Date().timeIntervalSince1970 - lastTimeShow
+        if  numberOfSecFromLastShow < DTAdsConfigManager.shared.getMinRangeShowInters() {
+            if numberOfSecFromLastShow + 10 > DTAdsConfigManager.shared.getMinRangeShowInters() {
+                // Cách nhỏ hơn 10 giây, nếu chưa có ad nào được load thì load thôi
+                if !isIntersAvaiableToShow() {
+                    loadNewInterstitialAds()
+                }
+            }
             return
         }
         // Check xem thằng nào có thì show
@@ -295,10 +326,12 @@ import MoPub
 
 extension DTAdsManager: GADInterstitialDelegate {
     public func interstitialDidReceiveAd(_ ad: GADInterstitial) {
+        isLoadingInters = false
         print("Interstitial did load: admob")
     }
     public func interstitial(_ ad: GADInterstitial, didFailToReceiveAdWithError error: GADRequestError) {
             print("Iters: admob load loi cmnr: \(error.debugDescription)")
+        isLoadingInters = false
         loadNewInterstitialAds()
     }
     public func interstitialDidDismissScreen(_ ad: GADInterstitial) {
@@ -313,10 +346,12 @@ extension DTAdsManager: GADInterstitialDelegate {
 }
 extension DTAdsManager: MPInterstitialAdControllerDelegate {
     public func interstitialDidLoadAd(_ interstitial: MPInterstitialAdController!) {
+        isLoadingInters = false
         print("Interstitial didload: mopub")
     }
     public func interstitialDidFail(toLoadAd interstitial: MPInterstitialAdController!, withError error: Error!) {
         print("Inters: mopub load loi cmnr \(error.debugDescription)")
+        isLoadingInters = false
         loadNewInterstitialAds()
     }
     public func interstitialWillAppear(_ interstitial: MPInterstitialAdController!) {
@@ -332,14 +367,16 @@ extension DTAdsManager: MPInterstitialAdControllerDelegate {
 
 extension DTAdsManager: FBInterstitialAdDelegate {
     public func interstitialAdDidLoad(_ interstitialAd: FBInterstitialAd) {
+        isLoadingInters = false
          print("Interstitial did load: facebook")
     }
     public func interstitialAd(_ interstitialAd: FBInterstitialAd, didFailWithError error: Error) {
         print("Inters: fb load loi cmnr \(error.localizedDescription)")
+        isLoadingInters = false
         loadNewInterstitialAds()
     }
     public func interstitialAdDidClose(_ interstitialAd: FBInterstitialAd) {
-        loadNewInterstitialAds()
+      //  loadNewInterstitialAds()
         self.bannerView.isHidden = !needShowBannerAfterDismisInters
     }
     public func interstitialAdDidClick(_ interstitialAd: FBInterstitialAd) {
@@ -355,6 +392,7 @@ extension DTAdsManager: GADBannerViewDelegate {//}, FBAdViewDelegate { // Tạm 
     public func adViewDidReceiveAd(_ bannerView: GADBannerView) {
         // Load được rồi thì add vào bannerView
         print("admob banner load ok")
+        isLoadingBanner = false
         if bannerView.superview != nil {
             return
         }
@@ -367,6 +405,7 @@ extension DTAdsManager: GADBannerViewDelegate {//}, FBAdViewDelegate { // Tạm 
     }
     public func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
         print("admob banner load loi cmnr \(error.debugDescription)")
+        isLoadingBanner = false
         loadNewBannerAds()
     }
     public func adViewWillPresentScreen(_ bannerView: GADBannerView) {
@@ -415,6 +454,7 @@ extension DTAdsManager: MPAdViewDelegate {
           }
        public func adViewDidLoadAd(_ view: MPAdView!, adSize: CGSize) {
         print("mopub banner load ok")
+        isLoadingBanner = false
         if view.superview != nil {
               return
           }
@@ -427,6 +467,7 @@ extension DTAdsManager: MPAdViewDelegate {
        }
        public func adViewDidFail(toLoadAd view: MPAdView!) {
          print("mopub banner load loi cmnr")
+        isLoadingBanner = false
             loadNewBannerAds()
        }
     public func willPresentModalView(forAd view: MPAdView!) {
