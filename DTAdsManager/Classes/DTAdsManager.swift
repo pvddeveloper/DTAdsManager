@@ -147,6 +147,15 @@ import MoPub
             loadNewBannerAds()
         }
     }
+    public func avaiableToShowBanner() -> Bool {
+        if self.bannerView.subviews.count > 0 {
+            if DTAdsConfigManager.shared.didBannerGetLimited() {
+                return false
+            }
+            return true
+        }
+        return false
+    }
     public func hideBannerAd() {
         self.bannerView.isHidden = true
     }
