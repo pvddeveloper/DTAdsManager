@@ -51,6 +51,7 @@ import MoPub
         GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [(kGADSimulatorID as! String)]
         FBAdSettings.addTestDevices([(kGADSimulatorID as! String)])
         let mopubConfig = MPMoPubConfiguration.init(adUnitIdForAppInitialization: DTAdType.mopubInters.getKey())
+        mopubConfig.loggingLevel = MPBLogLevel.debug
         MoPub.sharedInstance().initializeSdk(with: mopubConfig) {
             
         }
@@ -148,13 +149,20 @@ import MoPub
         }
     }
     public func avaiableToShowBanner() -> Bool {
-        if self.bannerView.subviews.count > 0 {
-            if DTAdsConfigManager.shared.didBannerGetLimited() {
-                return false
-            }
-            return true
-        }
-        return false
+       if DTAdsConfigManager.shared.didBannerGetLimited() || isProversion {
+                            return false
+                        }
+             if self.bannerView.subviews.count > 0 {
+                 return true
+             } else {
+                 // Load lỗi tất cả banner.
+                 // Check xem lần cuối load lỗi tất cả nếu lớn hơn 1 phút thì cho reload lại (tránh trường hợp user tắt mạng lúc vào app để trick)
+                 let lastTimeLoadBanner = UserDefaults.standard.double(forKey: "lastLoadBannerToReload")
+                 if Date.init().timeIntervalSince1970 - lastTimeLoadBanner > DTAdsConfigManager.shared.getMinRangeShowInters() {
+                     loadNewBannerAds()
+                 }
+             }
+             return false
     }
     public func hideBannerAd() {
         self.bannerView.isHidden = true
@@ -168,10 +176,15 @@ import MoPub
             return
         }
         if DTAdsConfigManager.shared.didBannerGetLimited() {
+           // loadBannerAds(rootVC: rootBannerVC)
+            self.heightConstraint?.constant = 0
+            self.hideBannerAd()
             return
         }
      
-        if let bannerType = DTAdsConfigManager.shared.getNextBannerType() {
+        if let bannerType = DTAdsConfigManager.shared.getNextBannerType() {// nghỉ nếu load hết một vòng toàn lỗi
+            // Save lại lần cuối load banner
+            UserDefaults.standard.set(Date.init().timeIntervalSince1970, forKey: "lastLoadBannerToReload")
             switch bannerType {
             case .admobBanner:
                 if admobBanner == nil {
@@ -196,15 +209,17 @@ import MoPub
 //                }
 //                fbBanner?.loadAd()
             case .mopubBanner:
+                if MoPub.sharedInstance().isSdkInitialized {
                 if mopubBanner == nil {
                     mopubBanner = MPAdView.init(adUnitId: DTAdType.mopubBanner.getKey())
                     mopubBanner?.delegate = self
-                    mopubBanner?.frame = self.bannerView.bounds
-                    if MoPub.sharedInstance().isSdkInitialized {
-                        mopubBanner?.loadAd()
-                    } else {
-                        loadNewBannerAds()
+                    mopubBanner?.frame = CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: self.heightConstraint?.constant ?? 250)
+                    
+                        mopubBanner?.loadAd(withMaxAdSize: CGSize.init(width: UIScreen.main.bounds.width, height: self.heightConstraint?.constant ?? 250))
+                } else {
+                    loadNewBannerAds()
                     }
+                    
                 }
             default:
                 break
@@ -234,11 +249,15 @@ import MoPub
             //    }
                 fbInterstitialAd?.load()
             case .mopubInters:
+                if MoPub.sharedInstance().isSdkInitialized {
               //  if mopubInterstitialAd == nil {
                     mopubInterstitialAd = MPInterstitialAdController.init(forAdUnitId: DTAdType.mopubInters.getKey())
                     mopubInterstitialAd?.delegate = self
              //  }
-                mopubInterstitialAd?.loadAd()
+                    mopubInterstitialAd?.loadAd()
+                } else {
+                    loadNewInterstitialAds()
+                }
             default:
                 break
             }
@@ -347,11 +366,12 @@ extension DTAdsManager: GADBannerViewDelegate {//}, FBAdViewDelegate { // Tạm 
         bannerView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
     public func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-         print("admob banner load loi cmnr")
+        print("admob banner load loi cmnr \(error.debugDescription)")
         loadNewBannerAds()
     }
     public func adViewWillPresentScreen(_ bannerView: GADBannerView) {
        hideBannerAd()
+        DTAdsConfigManager.shared.userDidClickBannerAds()
     }
     public func adViewDidDismissScreen(_ bannerView: GADBannerView) {
         unHideBanner()
@@ -394,20 +414,23 @@ extension DTAdsManager: MPAdViewDelegate {
               return bannerRootVC!
           }
        public func adViewDidLoadAd(_ view: MPAdView!, adSize: CGSize) {
-        if bannerView.superview != nil {
+        print("mopub banner load ok")
+        if view.superview != nil {
               return
           }
           for subV in self.bannerView.subviews {
               subV.removeFromSuperview()
           }
-          self.bannerView.addSubview(view)
+        self.bannerView.addSubview(view)
         //  self.bannerView.autoresizesSubviews = true
-          view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
        }
        public func adViewDidFail(toLoadAd view: MPAdView!) {
+         print("mopub banner load loi cmnr")
             loadNewBannerAds()
        }
     public func willPresentModalView(forAd view: MPAdView!) {
+        DTAdsConfigManager.shared.userDidClickBannerAds()
         hideBannerAd()
     }
     public func didDismissModalView(forAd view: MPAdView!) {

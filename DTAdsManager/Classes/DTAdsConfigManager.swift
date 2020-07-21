@@ -139,7 +139,7 @@ class DTAdsConfigManager {
                if maxShow > 0 {
                    return maxShow
                }
-               return 10
+               return 5
     }
     func userDidClickIntersAds() {
            var timeClickInters = UserDefaults.standard.array(forKey: "arrTimeClickInters") as? [Double] ?? [Double]()
@@ -154,7 +154,7 @@ class DTAdsConfigManager {
             return currentTime - timeClick < 86400
         }
         UserDefaults.standard.set(timeClickInters, forKey: "arrTimeClickInters")
-        return timeClickInters.count < getMaxClickIntersPerDay()
+        return timeClickInters.count >= getMaxClickIntersPerDay()
     }
     
     private func getMaxClickNativePerDay() -> Int {
@@ -178,7 +178,7 @@ class DTAdsConfigManager {
                return currentTime - timeClick < 86400
            }
         UserDefaults.standard.set(timeClicks, forKey: "arrTimeClickNative")
-           return timeClicks.count < getMaxClickNativePerDay()
+           return timeClicks.count >= getMaxClickNativePerDay()
        }
     private func getMaxClickBannerPerDay() -> Int {
            let json = JSON.init(parseJSON:  UserDefaults.standard.string(forKey: "savedConfigAdsKeyManager") ?? "")
@@ -186,7 +186,7 @@ class DTAdsConfigManager {
                          if maxShow > 0 {
                              return maxShow
                          }
-                         return 10
+                         return 5
        }
     func userDidClickBannerAds() {
               var timeClicks = UserDefaults.standard.array(forKey: "arrTimeClickBanner") as? [Double] ?? [Double]()
@@ -201,7 +201,7 @@ class DTAdsConfigManager {
                   return currentTime - timeClick < 86400
               }
            UserDefaults.standard.set(timeClicks, forKey: "arrTimeClickBanner")
-              return timeClicks.count < getMaxClickBannerPerDay()
+              return timeClicks.count >= getMaxClickBannerPerDay()
           }
     
 }
@@ -222,15 +222,15 @@ enum DTAdType: String {
         case .fbBanner:
             return UserDefaults.standard.string(forKey: DTAdType.fbBanner.rawValue) ?? "755638821870358_755644428536464"
         case .admobBanner:
-            return UserDefaults.standard.string(forKey: DTAdType.admobBanner.rawValue) ?? "ca-app-pub-3940256099942544/2934735716"
+            return UserDefaults.standard.string(forKey: DTAdType.admobBanner.rawValue) ?? "ca-app-pub-2372176163018331/3558016843"
         case .mopubBanner:
-            return UserDefaults.standard.string(forKey: DTAdType.mopubBanner.rawValue) ?? "ee4af3c6fdb44f13939075d98c2ac3ae"
+            return /*"2aae44d2ab91424d9850870af33e5af7" */ UserDefaults.standard.string(forKey: DTAdType.mopubBanner.rawValue) ?? "ee4af3c6fdb44f13939075d98c2ac3ae"
         case .fbInters:
             return UserDefaults.standard.string(forKey: DTAdType.fbInters.rawValue) ?? "755638821870358_755644201869820"
         case .admobInters:
-            return UserDefaults.standard.string(forKey: DTAdType.admobInters.rawValue) ?? "ca-app-pub-9435646037884749/8941608028"
+            return UserDefaults.standard.string(forKey: DTAdType.admobInters.rawValue) ?? "ca-app-pub-2372176163018331/7497261857"
         case .mopubInters:
-            return UserDefaults.standard.string(forKey: DTAdType.mopubInters.rawValue) ?? "28adc5afae1848c49f8bfcdb8c918371"
+            return /*"4f117153f5c24fa6a3a92b818a5eb630" */ UserDefaults.standard.string(forKey: DTAdType.mopubInters.rawValue) ?? "28adc5afae1848c49f8bfcdb8c918371"
         case .fbNative:
             return UserDefaults.standard.string(forKey: DTAdType.fbNative.rawValue) ?? "755638821870358_755643618536545"
         case .admobNative:

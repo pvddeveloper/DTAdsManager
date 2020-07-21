@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'DTAdsManager'
-  s.version          = '0.1.4'
+  s.version          = '0.1.6'
   s.summary          = 'A short description fffof DTAdsManager bs jkdhskj dkjsa kds kds sk.'
     s.swift_version = '4.0'
 # This description is used to generate tags and improve search results.
