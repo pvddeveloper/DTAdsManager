@@ -166,7 +166,12 @@ import MoPub
             switch bannerType {
             case .admobBanner:
                 if admobBanner == nil {
-                    admobBanner = GADBannerView.init(adSize: kGADAdSizeSmartBannerPortrait)
+                    if self.heightConstraint?.constant == 250 {
+                         admobBanner = GADBannerView.init(adSize: kGADAdSizeMediumRectangle)
+                    } else {
+                         admobBanner = GADBannerView.init(adSize: kGADAdSizeSmartBannerPortrait)
+                    }
+                   
                     admobBanner?.adUnitID = DTAdType.admobBanner.getKey()
                     admobBanner?.rootViewController = rootBannerVC
                     admobBanner?.delegate = self
