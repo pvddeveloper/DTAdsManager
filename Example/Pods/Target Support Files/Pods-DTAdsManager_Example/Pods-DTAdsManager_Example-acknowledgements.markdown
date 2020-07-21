@@ -531,6 +531,10 @@ Fuller's blog</a>
    limitations under the License.
 
 
+## mopub-ios-sdk
+
+The MoPub SDK License can be found at http://www.mopub.com/legal/sdk-license-agreement/
+
 ## nanopb
 
 Copyright (c) 2011 Petteri Aimonen <jpa at nanopb.mail.kapsi.fi>

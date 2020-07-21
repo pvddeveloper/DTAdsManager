@@ -1,7 +1,8 @@
 PODS:
-  - DTAdsManager (0.1.0):
+  - DTAdsManager (0.1.1):
     - FBAudienceNetwork
     - Google-Mobile-Ads-SDK
+    - mopub-ios-sdk
   - FBAudienceNetwork (5.9.0):
     - FBSDKCoreKit/Basics (>= 5.6.0)
   - FBSDKCoreKit/Basics (7.1.1)
@@ -30,6 +31,14 @@ PODS:
   - "GoogleUtilities/NSData+zlib (6.6.0)"
   - GoogleUtilities/Reachability (6.6.0):
     - GoogleUtilities/Logger
+  - mopub-ios-sdk (5.13.1):
+    - mopub-ios-sdk/MoPubSDK (= 5.13.1)
+  - mopub-ios-sdk/Core (5.13.1)
+  - mopub-ios-sdk/MoPubSDK (5.13.1):
+    - mopub-ios-sdk/Core
+    - mopub-ios-sdk/NativeAds
+  - mopub-ios-sdk/NativeAds (5.13.1):
+    - mopub-ios-sdk/Core
   - nanopb (1.30905.0):
     - nanopb/decode (= 1.30905.0)
     - nanopb/encode (= 1.30905.0)
@@ -41,6 +50,7 @@ DEPENDENCIES:
   - DTAdsManager (from `../`)
   - FBAudienceNetwork
   - Google-Mobile-Ads-SDK
+  - mopub-ios-sdk
 
 SPEC REPOS:
   trunk:
@@ -49,6 +59,7 @@ SPEC REPOS:
     - Google-Mobile-Ads-SDK
     - GoogleAppMeasurement
     - GoogleUtilities
+    - mopub-ios-sdk
     - nanopb
     - PromisesObjC
 
@@ -57,15 +68,16 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  DTAdsManager: f8b5ced6c0c79c9e1cffa7ca730bdfbfc6b065ec
+  DTAdsManager: a17e0e595589df47c3323c7f896d2c917c96e8be
   FBAudienceNetwork: 648648b13d8ea3d39676542dece2b04dbe867497
   FBSDKCoreKit: b46507dc8b8cefed31d644e74d7cc30e2a715ef8
   Google-Mobile-Ads-SDK: 4c3b24b04293b4bb370b2cb392cdd3ee97c87752
   GoogleAppMeasurement: 2fd5c5a56c069db635c8e7b92d4809a9591d0a69
   GoogleUtilities: 39530bc0ad980530298e9c4af8549e991fd033b1
+  mopub-ios-sdk: 18af57aaf79d0ea3d0232b43b2d603ae8ea8e826
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
 
-PODFILE CHECKSUM: 2e24b1e1a1e701cda31f4cf968efbd1631cd1dbb
+PODFILE CHECKSUM: c4584c2f3d54b522f00e47ba35cb8a9918542d5a
 
 COCOAPODS: 1.8.4

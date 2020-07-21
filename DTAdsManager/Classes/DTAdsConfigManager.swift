@@ -57,7 +57,7 @@ class DTAdsConfigManager {
             }
         }
         if arrBanner.count == 0 {
-            arrBanner = [.fbBanner, .admobBanner]
+            arrBanner = [.mopubBanner, .fbBanner, .admobBanner]
         }
         
         // Tạo arr Inters
@@ -73,7 +73,7 @@ class DTAdsConfigManager {
             }
         }
         if arrInters.count == 0 {
-            arrInters = [.fbInters, .admobInters]
+            arrInters = [.mopubInters, .fbInters, .admobInters]
         }
         // Tạo arr native
         arrNative = [DTAdType]()
@@ -88,7 +88,7 @@ class DTAdsConfigManager {
             }
         }
         if arrNative.count == 0 {
-            arrNative = [.fbNative, .admobNative]
+            arrNative = [.mopubNative, .fbNative, .admobNative]
         }
         currentBannerIndex = 0
         currentNativeIndex = 0
@@ -133,32 +133,111 @@ class DTAdsConfigManager {
         }
         return 5*60
     }
+   private func getMaxClickIntersPerDay() -> Int {
+        let json = JSON.init(parseJSON:  UserDefaults.standard.string(forKey: "savedConfigAdsKeyManager") ?? "")
+               let maxShow = json["maxShowIntersPerDay"].intValue
+               if maxShow > 0 {
+                   return maxShow
+               }
+               return 10
+    }
+    func userDidClickIntersAds() {
+           var timeClickInters = UserDefaults.standard.array(forKey: "arrTimeClickInters") as? [Double] ?? [Double]()
+           timeClickInters.append(Date.init().timeIntervalSince1970)
+           UserDefaults.standard.set(timeClickInters, forKey: "arrTimeClickInters")
+       }
+    func didIntersGetLimited() -> Bool {
+         var timeClickInters = UserDefaults.standard.array(forKey: "arrTimeClickInters") as? [Double] ?? [Double]()
+        let currentTime = Date.init().timeIntervalSince1970
+        timeClickInters = timeClickInters.filter { (timeClick) -> Bool in
+            // Loại bỏ những click đã quá 24 giờ
+            return currentTime - timeClick < 86400
+        }
+        UserDefaults.standard.set(timeClickInters, forKey: "arrTimeClickInters")
+        return timeClickInters.count < getMaxClickIntersPerDay()
+    }
+    
+    private func getMaxClickNativePerDay() -> Int {
+        let json = JSON.init(parseJSON:  UserDefaults.standard.string(forKey: "savedConfigAdsKeyManager") ?? "")
+                      let maxShow = json["maxShowNativePerDay"].intValue
+                      if maxShow > 0 {
+                          return maxShow
+                      }
+                      return 10
+    }
+    func userDidClickNativeAds() {
+           var timeClicks = UserDefaults.standard.array(forKey: "arrTimeClickNative") as? [Double] ?? [Double]()
+           timeClicks.append(Date.init().timeIntervalSince1970)
+           UserDefaults.standard.set(timeClicks, forKey: "arrTimeClickNative")
+       }
+    func didNativeGetLimited() -> Bool {
+            var timeClicks = UserDefaults.standard.array(forKey: "arrTimeClickNative") as? [Double] ?? [Double]()
+           let currentTime = Date.init().timeIntervalSince1970
+           timeClicks = timeClicks.filter { (timeClick) -> Bool in
+               // Loại bỏ những click đã quá 24 giờ
+               return currentTime - timeClick < 86400
+           }
+        UserDefaults.standard.set(timeClicks, forKey: "arrTimeClickNative")
+           return timeClicks.count < getMaxClickNativePerDay()
+       }
+    private func getMaxClickBannerPerDay() -> Int {
+           let json = JSON.init(parseJSON:  UserDefaults.standard.string(forKey: "savedConfigAdsKeyManager") ?? "")
+                         let maxShow = json["maxShowBannerPerDay"].intValue
+                         if maxShow > 0 {
+                             return maxShow
+                         }
+                         return 10
+       }
+    func userDidClickBannerAds() {
+              var timeClicks = UserDefaults.standard.array(forKey: "arrTimeClickBanner") as? [Double] ?? [Double]()
+              timeClicks.append(Date.init().timeIntervalSince1970)
+              UserDefaults.standard.set(timeClicks, forKey: "arrTimeClickBanner")
+          }
+    func didBannerGetLimited() -> Bool {
+               var timeClicks = UserDefaults.standard.array(forKey: "arrTimeClickBanner") as? [Double] ?? [Double]()
+              let currentTime = Date.init().timeIntervalSince1970
+              timeClicks = timeClicks.filter { (timeClick) -> Bool in
+                  // Loại bỏ những click đã quá 24 giờ
+                  return currentTime - timeClick < 86400
+              }
+           UserDefaults.standard.set(timeClicks, forKey: "arrTimeClickBanner")
+              return timeClicks.count < getMaxClickBannerPerDay()
+          }
     
 }
 
 enum DTAdType: String {
     case fbBanner = "fbBanner"
     case admobBanner = "admobBanner"
+    case mopubBanner = "mopubBanner"
     case fbInters = "fbInters"
     case admobInters = "admobInters"
+    case mopubInters = "mopubInters"
     case fbNative = "fbNative"
     case admobNative = "admobNative"
+    case mopubNative = "mopubNative"
     case notDefine = "notDefine"
     func getKey() -> String {
         switch self {
         case .fbBanner:
             return UserDefaults.standard.string(forKey: DTAdType.fbBanner.rawValue) ?? "755638821870358_755644428536464"
         case .admobBanner:
-            return UserDefaults.standard.string(forKey: DTAdType.admobBanner.rawValue) ?? "ca-app-pub-9435646037884749/3624877756"
+            return UserDefaults.standard.string(forKey: DTAdType.admobBanner.rawValue) ?? "ca-app-pub-3940256099942544/2934735716"
+        case .mopubBanner:
+            return UserDefaults.standard.string(forKey: DTAdType.mopubBanner.rawValue) ?? "ee4af3c6fdb44f13939075d98c2ac3ae"
         case .fbInters:
             return UserDefaults.standard.string(forKey: DTAdType.fbInters.rawValue) ?? "755638821870358_755644201869820"
         case .admobInters:
             return UserDefaults.standard.string(forKey: DTAdType.admobInters.rawValue) ?? "ca-app-pub-9435646037884749/8941608028"
+        case .mopubInters:
+            return UserDefaults.standard.string(forKey: DTAdType.mopubInters.rawValue) ?? "28adc5afae1848c49f8bfcdb8c918371"
         case .fbNative:
             return UserDefaults.standard.string(forKey: DTAdType.fbNative.rawValue) ?? "755638821870358_755643618536545"
         case .admobNative:
             return UserDefaults.standard.string(forKey: DTAdType.admobNative.rawValue) ?? "ca-app-pub-9435646037884749/9717495464"
-        default:
+        case .mopubNative:
+            return UserDefaults.standard.string(forKey: DTAdType.mopubNative.rawValue) ?? "06051b4176504a30a3f07e3671afd67f"
+        case .notDefine:
             return ""
         }
     }

@@ -1,19 +1,20 @@
 {
   "name": "DTAdsManager",
-  "version": "0.1.0",
-  "summary": "A short description fffof DTAdsManager.",
+  "version": "0.1.1",
+  "summary": "A short description fffof DTAdsManager bs jkdhskj dkjsa kds kds sk.",
+  "swift_versions": "4.0",
   "description": "Description",
-  "homepage": "https://github.com/adx-developer/DTAdsManager",
+  "homepage": "https://github.com/pvddeveloper/DTAdsManager/tree/0.1.0",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "adx-developer": "pvddeveloper@gmail.com"
+    "Pham Diep": "pvddeveloper@gmail.com"
   },
   "source": {
-    "git": "https://github.com/adx-developer/DTAdsManager.git",
-    "tag": "0.1.0"
+    "git": "https://github.com/pvddeveloper/DTAdsManager.git",
+    "tag": "0.1.1"
   },
   "platforms": {
     "ios": "8.0"
@@ -26,6 +27,10 @@
     ],
     "Google-Mobile-Ads-SDK": [
 
+    ],
+    "mopub-ios-sdk": [
+
     ]
-  }
+  },
+  "swift_version": "4.0"
 }

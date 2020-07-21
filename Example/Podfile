@@ -5,6 +5,15 @@ target 'DTAdsManager_Example' do
   pod 'DTAdsManager', :path => '../'
   pod 'Google-Mobile-Ads-SDK'
     pod 'FBAudienceNetwork'
+    pod 'mopub-ios-sdk'
+    # Facebook Audience Network
+   # pod 'MoPub-FacebookAudienceNetwork-Adapters', '5.10.0.0'
+
+    # Google (AdMob & Ad Manager)
+    #pod 'MoPub-AdMob-Adapters', '7.61.0.1'
+
+    # AppLovin
+   # pod 'MoPub-Applovin-Adapters', '6.13.1.0'
   target 'DTAdsManager_Tests' do
     inherit! :search_paths
 

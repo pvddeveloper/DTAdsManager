@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'DTAdsManager'
-  s.version          = '0.1.1'
+  s.version          = '0.1.2'
   s.summary          = 'A short description fffof DTAdsManager bs jkdhskj dkjsa kds kds sk.'
     s.swift_version = '4.0'
 # This description is used to generate tags and improve search results.
@@ -39,4 +39,11 @@ Pod::Spec.new do |s|
   s.static_framework = true
   s.dependency 'FBAudienceNetwork'
   s.dependency 'Google-Mobile-Ads-SDK'
+  s.dependency 'mopub-ios-sdk'
+  # Facebook Audience Network
+#  s.dependency 'MoPub-FacebookAudienceNetwork-Adapters', '5.10.0.0'
+  # Google (AdMob & Ad Manager)
+ # s.dependency 'MoPub-AdMob-Adapters', '7.61.0.1'
+  # AppLovin
+ # s.dependency 'MoPub-Applovin-Adapters', '6.13.1.0'
 end
