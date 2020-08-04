@@ -11,6 +11,7 @@ import UIKit
 import GoogleMobileAds
 import FBAudienceNetwork
 import MoPub
+import AppLovinSDK
 
 @objc public class DTAdsManager: NSObject {
     private var isIpad: Bool {
@@ -27,7 +28,6 @@ import MoPub
     private var fbInterstitialAd: FBInterstitialAd?
     private var admobInterstitialAd: GADInterstitial?
     private var mopubInterstitialAd: MPInterstitialAdController?
-   
     private var isProversion: Bool {
         get {
             return UserDefaults.standard.bool(forKey: "DTAdsManagerIsProVersion")
@@ -51,10 +51,16 @@ import MoPub
         GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [(kGADSimulatorID as! String)]
         FBAdSettings.addTestDevices([(kGADSimulatorID as! String)])
         let mopubConfig = MPMoPubConfiguration.init(adUnitIdForAppInitialization: DTAdType.mopubInters.getKey())
-        mopubConfig.loggingLevel = MPBLogLevel.debug
+        mopubConfig.loggingLevel = MPBLogLevel.info
+        ALSdk.initializeSdk {(_) in
+            if DTAdsConfigManager.shared.isTestMode == true {
+                    //  ALSdk.shared()?.settings.testDeviceAdvertisingIdentifiers = ["1B385BDD-10F0-4156-B092-B82F0E94DCD6"]
+                   }
+        }
         MoPub.sharedInstance().initializeSdk(with: mopubConfig) {
             
         }
+       
         if !isProversion {
             reloadAllAds()
         }
@@ -280,6 +286,7 @@ import MoPub
                 break
             }
         } else {
+        //    ALSdk.shared()?.adService.loadNextAd(ALAdSize.interstitial, andNotify: self)
             // Lỗi con mẹ nó cả 2 mạng => đợi đến lần show sau mới load. Tránh trường hợp spam load ads
             UserDefaults.standard.set(Date.init().timeIntervalSince1970, forKey: "DTLastTimeLoadFailedAllInters")
         }

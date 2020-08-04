@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'DTAdsManager'
-  s.version          = '0.1.8'
+  s.version          = '0.2'
   s.summary          = 'A short description fffof DTAdsManager bs jkdhskj dkjsa kds kds sk.'
     s.swift_version = '4.0'
 # This description is used to generate tags and improve search results.
@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/pvddeveloper/DTAdsManager.git', :tag => s.version}
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '10.0'
 
   s.source_files = 'DTAdsManager/Classes/**/*'
   
@@ -39,7 +39,9 @@ Pod::Spec.new do |s|
   s.static_framework = true
   s.dependency 'FBAudienceNetwork'
   s.dependency 'Google-Mobile-Ads-SDK'
-  s.dependency 'mopub-ios-sdk'
+  s.dependency 'mopub-ios-sdk', '~> 5.13'
+  s.dependency 'AppLovinSDK'
+  s.dependency 'MoPub-Applovin-Adapters', '~> 6.13.1.0'
   # Facebook Audience Network
 #  s.dependency 'MoPub-FacebookAudienceNetwork-Adapters', '5.10.0.0'
   # Google (AdMob & Ad Manager)

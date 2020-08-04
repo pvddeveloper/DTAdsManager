@@ -1,6 +1,15 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
+## AppLovinSDK
+
+
+Copyright 2019 AppLovin Corp. All rights reserved.
+
+The AppLovin SDK is available under a commercial license (https://www.applovin.com/eula).
+
+
+
 ## DTAdsManager
 
 Copyright (c) 2020 adx-developer <pvddeveloper@gmail.com>
@@ -323,6 +332,13 @@ similar to disable codesignature checks.
 
 More information at <a href="http://landonf.org/2009/02/index.html">Landon
 Fuller's blog</a>
+
+
+## MoPub-Applovin-Adapters
+
+ The MoPub SDK License can be found at http://www.mopub.com/legal/sdk-license-agreement/
+
+
 
 
 ## PromisesObjC

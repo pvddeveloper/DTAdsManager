@@ -1,9 +1,9 @@
 {
   "name": "DTAdsManager",
-  "version": "0.1.1",
+  "version": "0.1.8",
   "summary": "A short description fffof DTAdsManager bs jkdhskj dkjsa kds kds sk.",
   "swift_versions": "4.0",
-  "description": "Description",
+  "description": "Description the nay con bao la ngan casi con cu ah",
   "homepage": "https://github.com/pvddeveloper/DTAdsManager/tree/0.1.0",
   "license": {
     "type": "MIT",
@@ -14,7 +14,7 @@
   },
   "source": {
     "git": "https://github.com/pvddeveloper/DTAdsManager.git",
-    "tag": "0.1.1"
+    "tag": "0.1.8"
   },
   "platforms": {
     "ios": "8.0"
@@ -29,7 +29,13 @@
 
     ],
     "mopub-ios-sdk": [
+      "~> 5.13"
+    ],
+    "AppLovinSDK": [
 
+    ],
+    "MoPub-Applovin-Adapters": [
+      "6.13.1.0"
     ]
   },
   "swift_version": "4.0"

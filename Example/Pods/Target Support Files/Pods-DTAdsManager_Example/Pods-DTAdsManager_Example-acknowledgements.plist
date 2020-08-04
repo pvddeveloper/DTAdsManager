@@ -14,6 +14,21 @@
 		</dict>
 		<dict>
 			<key>FooterText</key>
+			<string>
+Copyright 2019 AppLovin Corp. All rights reserved.
+
+The AppLovin SDK is available under a commercial license (https://www.applovin.com/eula).
+
+</string>
+			<key>License</key>
+			<string>Commercial License</string>
+			<key>Title</key>
+			<string>AppLovinSDK</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
 			<string>Copyright (c) 2020 adx-developer &lt;pvddeveloper@gmail.com&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -369,6 +384,19 @@ Fuller's blog&lt;/a&gt;
 			<string>Apache</string>
 			<key>Title</key>
 			<string>GoogleUtilities</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
+			<string> The MoPub SDK License can be found at http://www.mopub.com/legal/sdk-license-agreement/
+
+
+</string>
+			<key>License</key>
+			<string>New BSD</string>
+			<key>Title</key>
+			<string>MoPub-Applovin-Adapters</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>

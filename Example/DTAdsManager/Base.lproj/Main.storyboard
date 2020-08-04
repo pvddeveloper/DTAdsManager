@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="D3a-3X-y2o">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -19,41 +19,86 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mtw-Ww-8mA">
-                                <rect key="frame" x="36" y="10" width="120" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="1Si-YW-SKY"/>
-                                    <constraint firstAttribute="height" constant="40" id="5GD-ej-yXj"/>
-                                </constraints>
-                                <state key="normal" title="Show Banner"/>
-                                <connections>
-                                    <action selector="onShowBanner:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="qgw-p8-YVx"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HhF-eO-THi">
-                                <rect key="frame" x="219" y="10" width="120" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="IAd-N0-HR9"/>
-                                    <constraint firstAttribute="height" constant="40" id="cW1-uO-Moa"/>
-                                </constraints>
-                                <state key="normal" title="Show interstitial"/>
-                                <connections>
-                                    <action selector="onShowInterstitial:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ULF-0N-gIh"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1dj-xf-Hto">
+                                <rect key="frame" x="36" y="54" width="303" height="140"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mtw-Ww-8mA">
+                                        <rect key="frame" x="0.0" y="0.0" width="303" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="5GD-ej-yXj"/>
+                                        </constraints>
+                                        <state key="normal" title="Show Banner"/>
+                                        <connections>
+                                            <action selector="onShowBanner:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="qgw-p8-YVx"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HhF-eO-THi">
+                                        <rect key="frame" x="0.0" y="50" width="303" height="40"/>
+                                        <state key="normal" title="Show interstitial"/>
+                                        <connections>
+                                            <action selector="onShowInterstitial:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ULF-0N-gIh"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8I1-mT-iwX">
+                                        <rect key="frame" x="0.0" y="100" width="303" height="40"/>
+                                        <state key="normal" title="Show MRect"/>
+                                        <connections>
+                                            <action selector="onShowInterstitial:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="msS-5L-5EC"/>
+                                            <segue destination="PBO-CT-Zao" kind="show" id="D0e-tx-eHE"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="mtw-Ww-8mA" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="10" id="Ixy-u6-d6n"/>
-                            <constraint firstItem="mtw-Ww-8mA" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="20" id="Lzg-q6-UNQ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="HhF-eO-THi" secondAttribute="trailing" constant="20" id="rbt-h0-6kZ"/>
-                            <constraint firstItem="HhF-eO-THi" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="10" id="vNZ-AJ-XGc"/>
+                            <constraint firstItem="1dj-xf-Hto" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="10" id="1GT-7a-50a"/>
+                            <constraint firstItem="1dj-xf-Hto" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="20" id="Dby-Fd-Dlp"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1dj-xf-Hto" secondAttribute="trailing" constant="20" id="dnB-mx-yuR"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="6xO-s7-ptI"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138" y="102"/>
+            <point key="canvasLocation" x="1076" y="101.19940029985008"/>
+        </scene>
+        <!--ShowM RectVC-->
+        <scene sceneID="Sdn-QT-OYc">
+            <objects>
+                <viewController id="PBO-CT-Zao" customClass="ShowMRectVC" customModule="DTAdsManager_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qgN-fQ-200"/>
+                        <viewControllerLayoutGuide type="bottom" id="Vo5-yK-Svu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hSc-wj-jkG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="mod-E0-JEd"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V6T-B2-Bba" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2105" y="174"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="vIC-hq-J7L">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="D3a-3X-y2o" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bXE-bs-zxp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="GVD-a8-I9U"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hJ9-fL-XAz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="101.19940029985008"/>
         </scene>
     </scenes>
 </document>

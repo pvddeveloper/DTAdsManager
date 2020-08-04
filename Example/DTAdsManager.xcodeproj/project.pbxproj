@@ -13,6 +13,7 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		B0613C2524CF27C00011EA31 /* ShowMRectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0613C2424CF27C00011EA31 /* ShowMRectVC.swift */; };
 		C5A29704BBEBFB1299C6CE63 /* Pods_DTAdsManager_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF823494BC8FB1CB09D6DDD1 /* Pods_DTAdsManager_Example.framework */; };
 		DEBFBCC1F922A17191A91580 /* Pods_DTAdsManager_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D2F6DA8DC083FBA8F0AAC9 /* Pods_DTAdsManager_Tests.framework */; };
 /* End PBXBuildFile section */
@@ -44,6 +45,7 @@
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		7F95D9CE28C2C806A1B3267B /* Pods-DTAdsManager_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTAdsManager_Example.debug.xcconfig"; path = "Target Support Files/Pods-DTAdsManager_Example/Pods-DTAdsManager_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		AF114B333E0C1B422A148E19 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		B0613C2424CF27C00011EA31 /* ShowMRectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowMRectVC.swift; sourceTree = "<group>"; };
 		BF823494BC8FB1CB09D6DDD1 /* Pods_DTAdsManager_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DTAdsManager_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D974CADD29A320E2A52BFA44 /* Pods-DTAdsManager_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTAdsManager_Example.release.xcconfig"; path = "Target Support Files/Pods-DTAdsManager_Example/Pods-DTAdsManager_Example.release.xcconfig"; sourceTree = "<group>"; };
 		ECF9C83A4AC462791DFC7D31 /* DTAdsManager.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = DTAdsManager.podspec; path = ../DTAdsManager.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -95,6 +97,7 @@
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
+				B0613C2424CF27C00011EA31 /* ShowMRectVC.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
@@ -171,6 +174,7 @@
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
 				E5E3AFCEF6B9C3FD36C42531 /* [CP] Embed Pods Frameworks */,
+				310FD702324B0E51076CEA6E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -264,6 +268,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		310FD702324B0E51076CEA6E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DTAdsManager_Example/Pods-DTAdsManager_Example-resources.sh",
+				"${PODS_ROOT}/AppLovinSDK/applovin-ios-sdk-6.13.1/AppLovinSDKResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AppLovinSDKResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DTAdsManager_Example/Pods-DTAdsManager_Example-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		5A5290CAE7035145B9F8EBC9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -343,6 +365,7 @@
 			files = (
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				B0613C2524CF27C00011EA31 /* ShowMRectVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,12 +511,14 @@
 			baseConfigurationReference = 7F95D9CE28C2C806A1B3267B /* Pods-DTAdsManager_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = Q77ARBLJKL;
 				INFOPLIST_FILE = DTAdsManager/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.2;
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = com.adsSkd.dt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ntgadget.MangaUSA2020;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
@@ -505,12 +530,14 @@
 			baseConfigurationReference = D974CADD29A320E2A52BFA44 /* Pods-DTAdsManager_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = Q77ARBLJKL;
 				INFOPLIST_FILE = DTAdsManager/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.2;
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = com.adsSkd.dt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ntgadget.MangaUSA2020;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
